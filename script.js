@@ -1,67 +1,63 @@
-//your JS code here. If required.
-const input = document.getElementById('ip');
-const output = document.getElementById('output');
-const btn = document.getElementById('btn');
+document.getElementById('btn').addEventListener('click', function() {
+  const inputNumber = document.getElementById('ip').value;
 
-btn.addEventListener('click', () => {
-  const promise1 = new Promise((resolve) => {
+  // Promise that resolves after 2 seconds with the input number
+  const promise1 = new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve(Number(input.value));
+      resolve(inputNumber);
     }, 2000);
   });
 
-  promise1.then((num) => {
-    output.textContent = `Result: ${num}`;
-    return num;
-  })
-  .then((num) => {
-    const promise2 = new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(num * 2);
-      }, 1000);
+  promise1
+    .then(result => {
+      document.getElementById('output').textContent = `Result: ${result}`;
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve(result);
+        }, 2000);
+      });
+    })
+    .then(result => {
+      const multipliedResult = result * 2;
+      document.getElementById('output').textContent = `Result: ${multipliedResult}`;
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve(multipliedResult);
+        }, 1000);
+      });
+    })
+    .then(result => {
+      const subtractedResult = result - 3;
+      document.getElementById('output').textContent = `Result: ${subtractedResult}`;
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve(subtractedResult);
+        }, 1000);
+      });
+    })
+    .then(result => {
+      const dividedResult = result / 2;
+      document.getElementById('output').textContent = `Result: ${dividedResult}`;
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve(dividedResult);
+        }, 1000);
+      });
+    })
+    .then(result => {
+      const addedResult = result + 10;
+      document.getElementById('output').textContent = `Result: ${addedResult}`;
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve(addedResult);
+        }, 1000);
+      });
+    })
+    .then(finalResult => {
+      document.getElementById('output').textContent = `Final Result: ${finalResult}`;
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      document.getElementById('output').textContent = 'Error occurred. Please try again.';
     });
-    return promise2;
-  })
-  .then((num) => {
-    output.textContent = `Result: ${num}`;
-    return num;
-  })
-  .then((num) => {
-    const promise3 = new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(num - 3);
-      }, 1000);
-    });
-    return promise3;
-  })
-  .then((num) => {
-    output.textContent = `Result: ${num}`;
-    return num;
-  })
-  .then((num) => {
-    const promise4 = new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(num / 2);
-      }, 1000);
-    });
-    return promise4;
-  })
-  .then((num) => {
-    output.textContent = `Result: ${num}`;
-    return num;
-  })
-  .then((num) => {
-    const promise5 = new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(num + 10);
-      }, 1000);
-    });
-    return promise5;
-  })
-  .then((num) => {
-    output.textContent = `Final Result: ${num}`;
-  })
-  .catch((error) => {
-    console.log(error);
-  });
 });
